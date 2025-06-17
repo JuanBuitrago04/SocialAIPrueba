@@ -7,7 +7,7 @@ Este sistema avanzado de gestión de pedidos automatiza el proceso de recepción
 
 ### Workflows Principales
 
-#### 1. Workflow Principal (workflow.json)
+#### 1. Workflow Principal (SocialAI .json)
 Este es el flujo principal que maneja la interacción con los clientes y el procesamiento de pedidos.
 
 **¿Qué hace?**
@@ -22,7 +22,7 @@ Este es el flujo principal que maneja la interacción con los clientes y el proc
 - Registro automático de pedidos
 - Notificaciones instantáneas
 
-#### 2. Workflow RAG (workflowRAG.json)
+#### 2. Workflow RAG (SocialAIRAG.json)
 Este es el flujo que maneja el catálogo de productos usando RAG (Retrieval Augmented Generation).
 
 **¿Qué hace?**
@@ -129,8 +129,8 @@ Este es el flujo que maneja el catálogo de productos usando RAG (Retrieval Augm
 ## Instrucciones de Entrega y Configuración
 
 ### 1. Archivos del Proyecto
-- `workflow.json`: Flujo de trabajo principal de n8n
-- `workflowRAG.json`: Flujo de trabajo para RAG (Retrieval Augmented Generation)
+- `SocialAI .json`: Flujo de trabajo principal de n8n
+- `SocialAIRAG.json`: Flujo de trabajo para RAG (Retrieval Augmented Generation)
 - `README.md`: Este archivo de documentación
 
 ### 2. Configuración de Credenciales
@@ -182,8 +182,8 @@ Este es el flujo que maneja el catálogo de productos usando RAG (Retrieval Augm
 #### 3.1 Importar Flujos de Trabajo
 1. Abrir n8n
 2. Ir a Workflows
-3. Importar `workflow.json`
-4. Importar `workflowRAG.json`
+3. Importar `SocialAI.json`
+4. Importar `SocialAIRAG.json`
 
 #### 3.2 Configurar Nodos
 1. **Telegram Trigger**
