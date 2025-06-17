@@ -1,111 +1,208 @@
-# SocialAI - Sistema de Gestión de Pedidos 🤖
+# SocialAI - Sistema de Gestión de Pedidos Inteligente 🤖
 
-## Instrucciones de Entrega
+## Descripción
+SocialAI es un sistema avanzado de gestión de pedidos que automatiza el proceso de recepción, procesamiento y confirmación de pedidos a través de Telegram. Utiliza inteligencia artificial para interactuar con los clientes de forma natural y eficiente, procesando pedidos y gestionando la información de manera automatizada.
 
-### 1. Archivo JSON
-El archivo `SocialAI.json` contiene el flujo de trabajo completo de n8n. Este archivo incluye:
-- Configuración de todos los nodos
-- Conexiones entre nodos
-- Credenciales (referencias)
-- Flujo de trabajo completo
+## Características Principales 🚀
 
-### 2. Configuración de Parámetros
+### 1. Interfaz Conversacional
+- Bot de Telegram para interacción con clientes
+- Procesamiento de lenguaje natural con GPT-4
+- Interfaz amigable y natural
+- Soporte para múltiples productos por pedido
 
-#### Credenciales Necesarias
-1. **Telegram Bot**
-   - Crear un bot en @BotFather
-   - Obtener el token del bot
-   - Configurar en n8n como "BotSocialAI"
+### 2. Gestión de Pedidos
+- Extracción automática de detalles del pedido
+- Validación de productos y cantidades
+- Cálculo automático de subtotales y totales
+- Gestión de direcciones y horarios de entrega
 
-2. **Google Sheets**
-   - Crear una hoja de cálculo en Google Drive
-   - Compartir con el email del servicio
+### 3. Integración con Google Sheets
+- Registro automático de pedidos
+- Actualización en tiempo real
+- Estructura de datos organizada
+- Fácil acceso a historial de pedidos
+
+### 4. Notificaciones Automáticas
+- Confirmación de pedidos por email
+- Formato profesional y detallado
+- Inclusión de todos los detalles del pedido
+- Notificaciones instantáneas
+
+## Tecnologías Utilizadas 💻
+
+- **n8n**: Automatización de flujos de trabajo
+- **OpenAI GPT-4**: Procesamiento de lenguaje natural
+- **Google Sheets API**: Gestión de datos
+- **Telegram Bot API**: Interfaz de usuario
+- **Gmail API**: Envío de notificaciones
+- **Pinecone**: Almacenamiento vectorial para catálogo
+
+## Instrucciones de Entrega y Configuración
+
+### 1. Archivos del Proyecto
+- `SocialAI.json`: Flujo de trabajo principal de n8n
+- `SocialAIRAG.json`: Flujo de trabajo para RAG (Retrieval Augmented Generation)
+- `README.md`: Este archivo de documentación
+
+### 2. Configuración de Credenciales
+
+#### 2.1 Telegram Bot
+1. Abrir Telegram y buscar @BotFather
+2. Crear nuevo bot con el comando `/newbot`
+3. Guardar el token proporcionado
+4. En n8n:
+   - Ir a Credentials
+   - Crear nueva credencial "BotSocialAI"
+   - Pegar el token del bot
+
+#### 2.2 Google Sheets
+1. Crear nueva hoja de cálculo en Google Drive
+2. Compartir con el email del servicio de n8n
+3. Copiar el ID de la hoja de la URL
+4. En n8n:
+   - Configurar credencial de Google Sheets
    - ID de la hoja: `1s4AZR6pYoBqnKDtHVvSoDWo79e-slanGcws5szlZlGo`
-   - Nombre de la hoja: "Hoja 1"
+   - Nombre: "Hoja 1"
 
-3. **Gmail**
-   - Configurar cuenta de Gmail
-   - Habilitar acceso de aplicaciones menos seguras
-   - Configurar en n8n como "Gmail account"
+#### 2.3 Gmail
+1. Configurar cuenta de Gmail
+2. Habilitar acceso de aplicaciones menos seguras
+3. En n8n:
+   - Crear credencial "Gmail account"
+   - Configurar OAuth2
 
-4. **OpenAI**
-   - Obtener API key de OpenAI
-   - Configurar en n8n como "OpenAi account"
+#### 2.4 OpenAI
+1. Crear cuenta en OpenAI
+2. Generar API key
+3. En n8n:
+   - Crear credencial "OpenAi account"
+   - Configurar API key
    - Modelo: gpt-4o-mini
 
-5. **Pinecone**
-   - Crear cuenta en Pinecone
-   - Obtener API key
-   - Configurar en n8n como "PineconeApi account"
+#### 2.5 Pinecone
+1. Crear cuenta en Pinecone
+2. Crear índice "catalogo"
+3. En n8n:
+   - Crear credencial "PineconeApi account"
+   - Configurar API key
    - Índice: "catalogo"
    - Namespace: "namespacecatalogo"
 
-### 3. Pasos para Probar
+### 3. Pasos para Implementar
 
-1. **Importar el Flujo**
-   - Abrir n8n
-   - Ir a Workflows
-   - Importar el archivo `SocialAI.json`
+#### 3.1 Importar Flujos de Trabajo
+1. Abrir n8n
+2. Ir a Workflows
+3. Importar `SocialAI.json`
+4. Importar `SocialAIRAG.json`
 
-2. **Configurar Credenciales**
-   - Configurar cada credencial mencionada arriba
-   - Verificar que todas las conexiones estén activas
+#### 3.2 Configurar Nodos
+1. **Telegram Trigger**
+   - Verificar webhook
+   - Activar el nodo
 
-3. **Activar el Flujo**
-   - Activar el workflow
-   - Verificar que el webhook de Telegram esté activo
+2. **AI Agent**
+   - Verificar conexión con OpenAI
+   - Comprobar prompt
 
-4. **Probar el Bot**
-   - Abrir Telegram
-   - Buscar el bot creado
-   - Enviar un mensaje de prueba como:
-     ```
-     Hola, quiero ordenar:
-     - 2 pizzas margarita
-     - 1 coca cola
-     ```
+3. **Extraer pedido_json**
+   - Verificar funciones JavaScript
+   - Comprobar regex
 
-5. **Verificar Resultados**
-   - Revisar la respuesta del bot
-   - Verificar la hoja de Google Sheets
-   - Comprobar el email de confirmación
+4. **Hoja Pedidos**
+   - Verificar ID de hoja
+   - Comprobar mapeo de columnas
 
-### 4. Estructura de la Hoja de Google Sheets
+5. **Formatear Email**
+   - Verificar plantilla HTML
+   - Comprobar variables
 
-La hoja debe tener las siguientes columnas:
-- Producto
-- Cantidad
-- Horario
-- Dirección
-- Subtotal
-- Cliente
-- PrecioUnitario
-- Total
+#### 3.3 Activar el Sistema
+1. Activar ambos workflows
+2. Verificar webhooks
+3. Probar conexiones
 
-### 5. Formato de Respuesta del Bot
+### 4. Estructura de Datos
 
-El bot responderá con:
-1. Confirmación de productos
-2. Solicitud de dirección
-3. Solicitud de horario
-4. Resumen del pedido
-5. Confirmación final
+#### 4.1 Google Sheets
+Columnas requeridas:
+```
+A: Producto
+B: Cantidad
+C: Horario
+D: Dirección
+E: Subtotal
+F: Cliente
+G: PrecioUnitario
+H: Total
+```
 
-### 6. Solución de Problemas
+#### 4.2 Formato de Mensajes
+1. **Mensaje de Cliente**:
+```
+Hola, quiero ordenar:
+- 2 Hodlmoser x 700ml
+- 1 Agua BLOCK 500cc
+```
 
-Si el bot no responde:
-1. Verificar que el workflow esté activo
-2. Comprobar las credenciales
-3. Revisar los logs de n8n
-4. Verificar la conexión con Telegram
+2. **Respuesta del Bot**:
+```
+📋 Resumen del pedido
+• Hodlmoser x 700ml
+  - Cantidad: 2
+  - Precio unitario: $19.575,00
+  - Subtotal: $39.150,00
+
+• Coca Cola
+  - Cantidad: 1
+  - Precio unitario: $570.00
+  - Subtotal: $570.00
+
+💰 Total del pedido: $39.720,00
+📍 Dirección: [dirección]
+⏰ Horario: [horario]
+```
+
+### 5. Solución de Problemas
+
+#### 5.1 Verificación de Errores
+1. **Bot no responde**:
+   - Verificar webhook de Telegram
+   - Comprobar credenciales
+   - Revisar logs de n8n
+
+2. **Error en extracción**:
+   - Verificar formato del mensaje
+   - Comprobar regex
+   - Revisar logs de JavaScript
+
+3. **Error en Google Sheets**:
+   - Verificar permisos
+   - Comprobar ID de hoja
+   - Revisar formato de datos
+
+#### 5.2 Logs y Monitoreo
+1. Revisar logs de n8n
+2. Monitorear webhooks
+3. Verificar conexiones
+4. Revisar errores en consola
+
+### 6. Mantenimiento
+
+#### 6.1 Actualizaciones
+- Revisar APIs mensualmente
+- Actualizar tokens trimestralmente
+- Mantener dependencias actualizadas
+
+#### 6.2 Backups
+- Exportar workflows regularmente
+- Guardar configuraciones
+- Mantener copias de credenciales
 
 ### 7. Notas Importantes
-
 - El bot procesa un pedido a la vez
 - Los precios se obtienen del catálogo en Pinecone
 - Las confirmaciones se envían por email
 - Los pedidos se registran en Google Sheets
-
----
-
-Para cualquier problema o duda, contactar al desarrollador. 
+- Mantener el catálogo actualizado en Pinecone
