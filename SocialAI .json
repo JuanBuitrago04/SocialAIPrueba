@@ -1,0 +1,654 @@
+{
+  "name": "SocialAI",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1s4AZR6pYoBqnKDtHVvSoDWo79e-slanGcws5szlZlGo",
+          "mode": "list",
+          "cachedResultName": "PruebaSocialAI"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Producto": "={{ $('Extraer pedido_json').item.json.Producto }}",
+            "Cantidad": "={{ $('Extraer pedido_json').item.json.Cantidad }}",
+            "Horario": "={{ $('Extraer pedido_json').item.json.Horario }}",
+            "Dirección": "={{ $('Extraer pedido_json').item.json['Dirección'] }}",
+            "Subtotal": "={{ $('Extraer pedido_json').item.json.Subtotal }}",
+            "Cliente": "={{ $('Cliente Mensaje').item.json.message.from.first_name }}",
+            "PrecioUnitario": "={{ $('Extraer pedido_json').item.json.PrecioUnitario }}",
+            "Total": "={{ $('Extraer pedido_json').item.json['Total Pedido'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Cliente",
+              "displayName": "Cliente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Dirección",
+              "displayName": "Dirección",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Horario",
+              "displayName": "Horario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Producto",
+              "displayName": "Producto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cantidad",
+              "displayName": "Cantidad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "PrecioUnitario",
+              "displayName": "PrecioUnitario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Subtotal",
+              "displayName": "Subtotal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Total",
+              "displayName": "Total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "\n",
+              "displayName": "\n",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "name": "Hoja Pedidos",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        280,
+        -480
+      ],
+      "id": "2c56cdbc-980b-433a-a67e-9d579f7dd9fa",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vybqEFLVj2P4KAhl",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "catalogo",
+          "mode": "list",
+          "cachedResultName": "catalogo"
+        },
+        "options": {
+          "pineconeNamespace": "namespacecatalogo"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.2,
+      "position": [
+        -620,
+        100
+      ],
+      "id": "b2c550b9-5542-4972-9e31-fb92d24574a4",
+      "name": "Pinecone Vector Store1",
+      "credentials": {
+        "pineconeApi": {
+          "id": "y2fr9NFAxvIqQpPR",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -540,
+        300
+      ],
+      "id": "4f351dc1-512e-4a72-86ff-0b9e97dbd9ac",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "IX7OJGVtvXezy6OE",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        100
+      ],
+      "id": "d4f2d3e2-64cf-4141-9a33-7db7891060b3",
+      "name": "OpenAI Chat Model3",
+      "credentials": {
+        "openAiApi": {
+          "id": "IX7OJGVtvXezy6OE",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "description": "Esta herramienta va a dar informacion sobre el codigo interno, descripcion y precio unitario"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1.1,
+      "position": [
+        -520,
+        -100
+      ],
+      "id": "b5c75b74-1069-47e1-b131-ec77cb7235ee",
+      "name": "catalogo1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -760,
+        -100
+      ],
+      "id": "fdeacd21-e5e7-4c1b-beed-10a9e49cd493",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "IX7OJGVtvXezy6OE",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "{{$json.sessionId}}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -640,
+        -100
+      ],
+      "id": "e1291e6b-ae8f-4d43-aae1-5ae07e2cf7d4",
+      "name": "Simple Memory",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "3023f09c-cdf5-4371-8e80-300aa4d70ac3",
+      "name": "Capturar Cliente",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        -980,
+        -320
+      ]
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "6b76be7a-8f1e-4207-a5d0-aa238c5ff03c",
+      "name": "Cliente Mensaje",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1200,
+        -320
+      ],
+      "webhookId": "60ffcaf5-4aa1-48b0-a3ab-66e22f3db03d",
+      "credentials": {
+        "telegramApi": {
+          "id": "gmeT2tWy2wLQM1Db",
+          "name": "BotSocialAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=## 🎯 Rol  \nEres un asistente de ventas conversacional. Atiendes pedidos de productos de forma amable, clara y natural, como un vendedor humano real.  \nRespondes exclusivamente con la información del catálogo y ayudas al usuario a completar su pedido paso a paso, incluyendo dirección, horario y cantidades.  \n\n---\n\n## ✅ Tareas principales\n\n1. Responde al siguiente mensaje del usuario:  \n   {{ $('Cliente Mensaje').item.json.message.text }}\n\n2. Mantén en memoria un *array* items (inicialmente vacío). Cada vez que el usuario mencione un producto y cantidad:\n   - Usa la herramienta catalogo para obtener el *precio unitario más bajo de una sola unidad*.  \n   - Añade al array items el objeto:\n     ```json\n     {\n       \"producto\": \"...\",\n       \"cantidad\": n,\n       \"unitario\": x.xx,\n       \"subtotal\": cantidad * unitario\n     }\n     ```\n   - **IMPORTANTE**: NO reemplaces el array items, solo añade el nuevo producto al array existente.\n   - Mantén todos los productos anteriores en el array.\n\n3. Después de procesar el primer producto:\n   - Si el usuario mencionó solo un producto y no ha preguntado por más, continúa al paso 5.\n   - Si el usuario podría querer más productos, pregunta:  \n     > \"¿Quieres *agregar otro producto? (responde *'agregar'* / *'no agregar'*)\"\n\n4. Si el usuario dice *\"agregar\"*, vuelve al paso 2.  \n   Si dice *\"no agregar\"* o no responde, continúa al paso 5.\n\n5. Si falta, solicita la *dirección* de entrega:  \n   > \"Por favor, indícame tu dirección de entrega.\"\n\n6. Si falta, solicita la *franja horaria*:  \n   > \"¿En qué horario te gustaría recibir tu pedido? (por ejemplo, 8 am–9 am)\"\n\n7. Calcula el *total general* sumando todos los subtotal en items.\n\n8. Muestra el resumen final y luego pregunta:  \n   📋 *Resumen del pedido*  \n   • [Producto 1]\n     - Cantidad: [cantidad]\n     - Precio unitario: $[precio]\n     - Subtotal: $[subtotal]\n   \n   • [Producto 2]\n     - Cantidad: [cantidad]\n     - Precio unitario: $[precio]\n     - Subtotal: $[subtotal]\n   \n   💰 *Total del pedido:* $[total]  \n   📍 *Dirección:* [dirección]  \n   ⏰ *Horario:* [horario]  \n\n   > \"¿Deseas *confirmar* y finalizar tu pedido? (responde *'confirmar'* / *'cancelar'*)\"\n\n---\n\n## ✅ Confirmación final\n\n- Si el usuario dice *\"confirmar\"*:\n  - Responde SOLO con el mensaje de confirmación y el resumen del pedido:\n    > \"¡Gracias por confirmar tu pedido! 🎉 En breve lo estaremos procesando.\n    > \n    > 📋 *Resumen del pedido*  \n    > • [Producto 1]\n    >   - Cantidad: [cantidad]\n    >   - Precio unitario: $[precio]\n    >   - Subtotal: $[subtotal]\n    > \n    > • [Producto 2]\n    >   - Cantidad: [cantidad]\n    >   - Precio unitario: $[precio]\n    >   - Subtotal: $[subtotal]\n    > \n    > 💰 *Total del pedido:* $[total]  \n    > 📍 *Dirección:* [dirección]  \n    > ⏰ *Horario:* [horario]\"\n  - **IMPORTANTE**: El JSON debe ser manejado internamente por el sistema y NO debe aparecer en el mensaje de respuesta.\n  - **IMPORTANTE**: El mensaje de respuesta debe contener SOLO el texto amigable con el resumen del pedido.\n  - **IMPORTANTE**: NO incluyas el JSON en ningún formato, ni visible ni oculto.\n  - **IMPORTANTE**: El JSON debe ser manejado por el sistema de forma transparente para el usuario.\n  - **IMPORTANTE**: Para cada producto en el array items, asegúrate de que tenga la siguiente estructura:\n    ```json\n    {\n      \"producto\": \"nombre del producto\",\n      \"cantidad\": número,\n      \"unitario\": precio unitario,\n      \"subtotal\": cantidad * unitario\n    }\n    ```\n  - **IMPORTANTE**: El array items debe contener TODOS los productos del pedido, no solo el último.\n  - **IMPORTANTE**: El JSON debe incluir la dirección y horario de entrega.\n\n- Si el usuario dice *\"cancelar\"*:\n  - Pregunta qué desea cambiar (producto, cantidad, dirección u horario), ajusta los datos en items o en la entrega y vuelve a mostrar el resumen actualizado.\n\n---\n\n> *Regla crítica:* Por encima de todo, *SIEMPRE* usa el precio unitario más bajo disponible para una sola unidad (ignora packs o cajas).  \n> ¡Nunca inventes precios ni detalles fuera del catálogo!\n> **IMPORTANTE**: Mantén TODOS los productos en el array items, no solo el último agregado.\n> **IMPORTANTE**: Adapta tu respuesta según si el usuario quiere uno o varios productos.\n> **IMPORTANTE**: NUNCA incluyas el JSON en el mensaje de respuesta, ni visible ni oculto.\n> **IMPORTANTE**: El mensaje de respuesta debe contener SOLO el texto amigable con el resumen del pedido.\n> **IMPORTANTE**: Asegúrate de que el JSON tenga la estructura correcta para ser procesado por Google Sheets.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -720,
+        -320
+      ],
+      "id": "33ecd2a6-88d9-4fc6-b26e-03067751380b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "jsCode": "function limpiar(texto) {\n  if (texto === undefined || texto === null) return '';\n  return String(texto)\n    .normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\")\n    .replace(/[^\\w\\s.,-]/gi, '')\n    .trim();\n}\n\nfunction extraerValorMonetario(texto) {\n  // Elimina el símbolo de dólar y espacios, luego limpia el texto\n  return limpiar(texto.replace(/\\$/g, ''));\n}\n\nlet rawOutput = $input.first().json.output || '';\nlet conversationalMessage = rawOutput.replace(/\\\\n/g, '\\n');\n\n// Primero intentar extraer JSON\nlet jsonMatch = conversationalMessage.match(/\\{[\\s\\S]*\\}/);\nlet pedido_json_data = null;\nlet error = null;\n\nif (jsonMatch) {\n  try {\n    pedido_json_data = JSON.parse(jsonMatch[0]);\n    conversationalMessage = conversationalMessage.replace(jsonMatch[0], '').trim();\n    if (pedido_json_data.pedido_json) {\n      pedido_json_data = pedido_json_data.pedido_json;\n    }\n  } catch (e) {\n    error = 'Error parseando JSON: ' + e.message;\n  }\n}\n\nlet productos = [];\nif (pedido_json_data && Array.isArray(pedido_json_data.items)) {\n  productos = pedido_json_data.items;\n} else if (pedido_json_data && Array.isArray(pedido_json_data.productos)) {\n  productos = pedido_json_data.productos;\n} else if (pedido_json_data && pedido_json_data.producto) {\n  productos = [pedido_json_data];\n}\n\n// Si no se encontró JSON, extraer del mensaje formateado\nif (productos.length === 0) {\n  // Ajustada la regex para ser más flexible con los espacios y saltos de línea.\n  // Usamos \\s+ para cualquier tipo de espacio (incluyendo saltos de línea) de uno o más.\n  const regexProductos = /• (.*?)\\s+-\\s*Cantidad:\\s*(\\d+)\\s+-\\s*Precio unitario:\\s*\\$([\\d.,]+)\\s+-\\s*Subtotal:\\s*\\$([\\d.,]+)/g;\n  let match;\n  \n  while ((match = regexProductos.exec(conversationalMessage)) !== null) {\n    productos.push({\n      producto: match[1].trim(), \n      cantidad: parseInt(match[2]),\n      unitario: extraerValorMonetario(match[3]), \n      subtotal: extraerValorMonetario(match[4]) \n    });\n  }\n}\n\n// Extraer dirección y horario del mensaje\nconst direccionMatch = conversationalMessage.match(/📍 \\*Dirección:\\* (.*?)(?:\\n|$)/);\nconst horarioMatch = conversationalMessage.match(/⏰ \\*Horario:\\* (.*?)(?:\\n|$)/);\nconst totalMatch = conversationalMessage.match(/💰 \\*Total del pedido:\\* \\$([\\d.,]+)/);\n\nconst direccion = limpiar(direccionMatch ? direccionMatch[1] : '');\nconst horario = limpiar(horarioMatch ? horarioMatch[1] : '');\nconst totalPedido = totalMatch ? extraerValorMonetario(totalMatch[1]) : ''; \nconst cliente = limpiar($input.first().json.Cliente || $input.first().json.message?.from?.first_name || 'Cliente Genérico');\n\nif (productos.length === 0 && !error) {\n  error = 'No se encontraron productos válidos.';\n}\n\n// Mapear cada producto a un elemento separado para Google Sheets\nconst itemsParaGoogleSheets = productos.map(prod => ({\n  json: {\n    Producto: limpiar(prod.nombre || prod.producto || ''),\n    Cantidad: limpiar(prod.cantidad || ''),\n    PrecioUnitario: limpiar(prod.precio_unitario || prod.unitario || ''),\n    Subtotal: limpiar(prod.subtotal || ''),\n    Dirección: direccion,\n    Horario: horario,\n    Cliente: cliente,\n    \"Total Pedido\": totalPedido \n  }\n}));\n\n// Si no hay productos, devolver un elemento con el error.\nif (itemsParaGoogleSheets.length === 0 && error) {\n  return [{\n    json: {\n      error: error,\n      conversationalMessage: conversationalMessage\n    }\n  }];\n} else if (itemsParaGoogleSheets.length === 0) {\n  return [{\n    json: {\n      error: 'No se encontraron productos válidos para Google Sheets.',\n      conversationalMessage: conversationalMessage\n    }\n  }];\n}\n\nreturn itemsParaGoogleSheets;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -380,
+        -320
+      ],
+      "id": "90460b4b-5653-4307-9a46-bbe7b2ab103c",
+      "name": "Extraer pedido_json"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Cliente Mensaje').item.json.message.from.id }}",
+        "text": "={{ $('AI Agent').item.json.output }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "6dd7a6c1-e01a-4faf-ae8f-936ea84d1d29",
+      "name": "Responder a Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        -320
+      ],
+      "webhookId": "9b027501-2fae-4085-960f-83c332e23d38",
+      "credentials": {
+        "telegramApi": {
+          "id": "gmeT2tWy2wLQM1Db",
+          "name": "BotSocialAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7c0e35b4-266f-4b0d-a5ff-922d1cba4df2",
+              "leftValue": "={{ $('Capturar Cliente').item.json.message.text }}",
+              "rightValue": "Si",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "72ad789b-0977-4e87-a375-af1593720411",
+              "leftValue": "={{ $('Capturar Cliente').item.json.message.text }}",
+              "rightValue": "Ok",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "0d340e5b-2c26-4df6-87a5-6ff28fce5296",
+              "leftValue": "={{ $('Capturar Cliente').item.json.message.text }}",
+              "rightValue": "OK",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "93aa43e3-f987-41ef-93a8-a54c422de573",
+              "leftValue": "={{ $('Capturar Cliente').item.json.message.text }}",
+              "rightValue": "SI",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "0cf470f8-83ed-46aa-b2c1-c25c79952669",
+              "leftValue": "={{ $('Capturar Cliente').item.json.message.text }}",
+              "rightValue": "Confirmar",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "dd9fedac-f9a4-4983-bf8f-d5d7b4a42284",
+              "leftValue": "={{ $('Capturar Cliente').item.json.message.text }}",
+              "rightValue": "confirmar",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "6ed7b8f8-b365-4152-a552-98fb17946586",
+              "leftValue": "={{ $('Capturar Cliente').item.json.message.text }}",
+              "rightValue": "confirmo",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        -320
+      ],
+      "id": "61faa307-928d-4684-974b-f2a5d3a89647",
+      "name": "Confirmacion Pedido"
+    },
+    {
+      "parameters": {
+        "sendTo": "juancamilobuitragohernandez13@gmail.com",
+        "subject": "Nuevo pedido confirmado",
+        "message": "={{ $json.fullEmailMessage }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        680,
+        -480
+      ],
+      "id": "00e83bb9-a9c0-4381-8302-8cfb33078671",
+      "name": "Mensaje Gmail",
+      "webhookId": "a097976a-db09-495d-b894-017776877107",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "2yI4QTQDRErsMnuG",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "function limpiar(texto) {\n  if (texto === undefined || texto === null) return '';\n  return String(texto)\n    .normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\")\n    .replace(/[^\\w\\s.,-]/gi, '')\n    .trim();\n}\n\nlet allProducts = $input.all();\n\nlet emailMessageContent = '';\nlet totalOrderAmount = '';\nlet deliveryAddress = '';\nlet deliveryTime = '';\nlet customerName = '';\n\nif (allProducts.length > 0) {\n  const firstProduct = allProducts[0].json;\n  deliveryAddress = limpiar(firstProduct.Dirección);\n  deliveryTime = limpiar(firstProduct.Horario);\n  totalOrderAmount = limpiar(firstProduct[\"Total Pedido\"]);\n  customerName = limpiar(firstProduct.Cliente);\n\n  let productsListHtml = '';\n  allProducts.forEach(prodItem => {\n    const product = prodItem.json;\n    productsListHtml += `\n      • <strong>${limpiar(product.Producto)}</strong><br>\n        - Cantidad: ${limpiar(product.Cantidad)}<br>\n        - Precio unitario: $${limpiar(product.PrecioUnitario)}<br>\n        - Subtotal: $${limpiar(product.Subtotal)}<br><br>\n    `;\n  });\n\n  emailMessageContent = `\n    📦 <strong>Pedido confirmado</strong><br><br>\n    ¡Hola ${customerName || 'cliente'}!<br><br>\n    Tu pedido ha sido confirmado y en breve lo estaremos procesando.<br><br>\n    📍 <strong>Dirección:</strong> ${deliveryAddress}<br>\n    ⏰ <strong>Horario:</strong> ${deliveryTime}<br><br>\n    <strong>Detalles del pedido:</strong><br>\n    ${productsListHtml}\n    💵 <strong>Total del pedido:</strong> $${$input.first().json.Total}\n  `;\n} else {\n  emailMessageContent = `\n    📦 <strong>Pedido confirmado</strong><br><br>\n    Tu pedido ha sido confirmado, pero no se encontraron detalles de productos.<br><br>\n    Por favor, contacta con nosotros para más información.\n  `;\n}\n\nreturn [{\n  json: {\n    fullEmailMessage: emailMessageContent\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        -480
+      ],
+      "id": "f54adfd1-eb51-4c6e-b0ee-df401cea9742",
+      "name": "Formatear Email Pedido"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Hoja Pedidos": {
+      "main": [
+        [
+          {
+            "node": "Formatear Email Pedido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store1": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "catalogo1",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "catalogo1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "catalogo1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capturar Cliente": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cliente Mensaje": {
+      "main": [
+        [
+          {
+            "node": "Capturar Cliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Extraer pedido_json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer pedido_json": {
+      "main": [
+        [
+          {
+            "node": "Responder a Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Responder a Telegram": {
+      "main": [
+        [
+          {
+            "node": "Confirmacion Pedido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirmacion Pedido": {
+      "main": [
+        [
+          {
+            "node": "Hoja Pedidos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mensaje Gmail": {
+      "main": [
+        []
+      ]
+    },
+    "Formatear Email Pedido": {
+      "main": [
+        [
+          {
+            "node": "Mensaje Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "04c14bdf-d1af-4cd5-a1fc-2907115012e3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3358e0247f99db96c2339a74f92bd278c277a8659c2f824b80fa3ae21f14f90e"
+  },
+  "id": "iYlzOElFYSnZSMTz",
+  "tags": []
+}
