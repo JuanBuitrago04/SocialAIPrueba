@@ -3,6 +3,94 @@
 ## Descripción
 SocialAI es un sistema avanzado de gestión de pedidos que automatiza el proceso de recepción, procesamiento y confirmación de pedidos a través de Telegram. Utiliza inteligencia artificial para interactuar con los clientes de forma natural y eficiente, procesando pedidos y gestionando la información de manera automatizada.
 
+## Arquitectura del Sistema 🏗️
+
+### Workflows Principales
+
+#### 1. Workflow Principal (SocialAI.json)
+Este es el flujo principal que maneja la interacción con los clientes y el procesamiento de pedidos.
+
+**¿Qué hace?**
+- Recibe mensajes de los clientes por Telegram
+- Procesa los pedidos usando IA
+- Guarda los pedidos en Google Sheets
+- Envía confirmaciones por email
+
+**Ventajas:**
+- Procesamiento en tiempo real
+- Respuestas inmediatas al cliente
+- Registro automático de pedidos
+- Notificaciones instantáneas
+
+#### 2. Workflow RAG (SocialAIRAG.json)
+Este es el flujo que maneja el catálogo de productos usando RAG (Retrieval Augmented Generation).
+
+**¿Qué hace?**
+- Mantiene actualizado el catálogo de productos
+- Procesa nuevos productos automáticamente
+- Mejora la precisión de las respuestas
+- Actualiza precios y disponibilidad
+
+**Ventajas:**
+- Catálogo siempre actualizado
+- Mejor precisión en respuestas
+- Actualización automática de productos
+- Gestión eficiente del inventario
+
+### ¿Por qué dos Workflows? 🤔
+
+1. **Separación de Responsabilidades**
+   - Cada workflow tiene una función específica
+   - Más fácil de mantener y actualizar
+   - Mejor organización del código
+
+2. **Mejor Rendimiento**
+   - Procesamiento paralelo
+   - Menor carga en cada workflow
+   - Respuestas más rápidas
+
+3. **Mayor Confiabilidad**
+   - Si un workflow falla, el otro sigue funcionando
+   - Mejor manejo de errores
+   - Sistema más robusto
+
+4. **Facilidad de Mantenimiento**
+   - Actualizaciones independientes
+   - Pruebas más sencillas
+   - Depuración más fácil
+
+### Ejemplo Práctico 📝
+
+1. **Cuando un cliente hace un pedido:**
+   - El workflow principal (SocialAI.json) procesa el mensaje
+   - Consulta el catálogo actualizado del workflow RAG
+   - Procesa el pedido y envía confirmaciones
+
+2. **Cuando se actualiza el catálogo:**
+   - El workflow RAG (SocialAIRAG.json) procesa los cambios
+   - Actualiza la base de datos de productos
+   - El workflow principal usa la información actualizada
+
+### Beneficios para el Usuario Final 👥
+
+1. **Para los Clientes:**
+   - Respuestas más precisas
+   - Información actualizada de productos
+   - Proceso de pedido más rápido
+   - Mejor experiencia de usuario
+
+2. **Para los Administradores:**
+   - Sistema más fácil de mantener
+   - Mejor control del catálogo
+   - Actualizaciones más sencillas
+   - Mayor confiabilidad
+
+3. **Para el Negocio:**
+   - Procesamiento más eficiente
+   - Menos errores en pedidos
+   - Mejor gestión de inventario
+   - Sistema más escalable
+
 ## Características Principales 🚀
 
 ### 1. Interfaz Conversacional
@@ -154,7 +242,7 @@ Hola, quiero ordenar:
   - Precio unitario: $19.575,00
   - Subtotal: $39.150,00
 
-• Coca Cola
+• Agua BLOCK 500cc
   - Cantidad: 1
   - Precio unitario: $570.00
   - Subtotal: $570.00
